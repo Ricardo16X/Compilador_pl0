@@ -81,7 +81,7 @@ def buscarFicheros(directorio):
 
 # Buscar dentro del fichero o directorio
 # Escritorio
-directorio = 'C:\\Users\\Ordenador\\Documents\\Python\\test\\'
+directorio = 'C:\\Users\\Ordenador\\Documents\\Python\\Compilador pl0\\test\\'
 # Portatil
 #directorio = 'C:\\Users\\Ordenador\\Escritorio\\carpeta xd\\test\\'
 archivo = buscarFicheros(directorio)
