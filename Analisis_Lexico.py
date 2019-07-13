@@ -80,7 +80,10 @@ def buscarFicheros(directorio):
     return files[int(numArchivo) - 1]
 
 # Buscar dentro del fichero o directorio
-directorio = 'C:\\Users\\Ordenador\\Documents\\Python\\test\\'
+# Escritorio
+# directorio = 'C:\\Users\\Ordenador\\Documents\\Python\\test\\'
+# Portatil
+directorio = 'C:\\Users\\Ordenador\\Escritorio\\carpeta xd\\test\\'
 archivo = buscarFicheros(directorio)
 test = directorio + archivo
 fileOpen = codecs.open(test,"r","utf-8")
