@@ -56,44 +56,44 @@ def t_error(t):
     print("Caracter ilegal " + t.value[0])
     t.lexer.skip(1)
 # Función de Buscar Fichero
-def buscarFicheros(directorio):
-    ficheros = []
-    numArchivo = ''
-    respuesta = False
-    cont = 1
-    # Ciclo For
-    for base,dirs,files in os.walk(directorio):
-        ficheros.append(files)
+# def buscarFicheros(directorio):
+#     ficheros = []
+#     numArchivo = ''
+#     respuesta = False
+#     cont = 1
+#     # Ciclo For
+#     for base,dirs,files in os.walk(directorio):
+#         ficheros.append(files)
     
-    for file in files:
-        print(str(cont) + '. ' + str(file))
-        cont = cont + 1
+#     for file in files:
+#         print(str(cont) + '. ' + str(file))
+#         cont = cont + 1
     
-    while respuesta == False:
-        numArchivo = input('\nNúmero del test: ')
-        for file in files:
-            if file == files[int(numArchivo) - 1]:
-                respuesta = True
-                break
+#     while respuesta == False:
+#         numArchivo = input('\nNúmero del test: ')
+#         for file in files:
+#             if file == files[int(numArchivo) - 1]:
+#                 respuesta = True
+#                 break
 
-    print('Has escogido \n' + files[int(numArchivo) - 1])
-    return files[int(numArchivo) - 1]
+#     print('Has escogido \n' + files[int(numArchivo) - 1])
+#     return files[int(numArchivo) - 1]
 
 # Buscar dentro del fichero o directorio
 # Escritorio
 directorio = 'C:\\Users\\Ordenador\\Documents\\Python\\Compilador pl0\\test\\'
 # Portatil
 #directorio = 'C:\\Users\\Ordenador\\Escritorio\\carpeta xd\\test\\'
-archivo = buscarFicheros(directorio)
-test = directorio + archivo
-fileOpen = codecs.open(test,"r","utf-8")
-cadena = fileOpen.read()
-fileOpen.close()
+# archivo = buscarFicheros(directorio)
+# test = directorio + archivo
+# fileOpen = codecs.open(test,"r","utf-8")
+# cadena = fileOpen.read()
+# fileOpen.close()
 # Trabajando sobre la variable cadena
 analizador = lex.lex()
-analizador.input(cadena)
+#analizador.input(cadena)
 # Leyendo cadena o trabajando cadena
-while True:
-    tok = analizador.token()
-    if not tok: break
-    print(tok)
+# while True:
+#     tok = analizador.token()
+#     if not tok: break
+#     print(tok)

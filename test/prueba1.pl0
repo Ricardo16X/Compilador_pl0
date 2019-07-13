@@ -1,5 +1,7 @@
-m = 7,
-n = 85;
-#Otro comentario
-ODD m;
-#Comentario sorpresa xd
+BEGIN
+ VAR
+    x,y,z,q,r;
+
+ PROCEDURE multiply;
+ VAR a, b;
+END

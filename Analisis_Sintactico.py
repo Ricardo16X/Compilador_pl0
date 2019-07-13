@@ -6,6 +6,9 @@ from Analisis_Lexico import tokens
 from sys import stdin
 
 precedence = (
+    ('right','ID','CALL','BEGIN','IF','WHILE'),
+    ('right','PROCEDURE'),
+    ('right','VAR'),
     ('right', 'ASSIGN'),
     ('right','UPDATE'),
     ('left','NE'),
@@ -17,30 +20,34 @@ precedence = (
     )
 #program
 def p_program(p):
-    '''program = block'''
+    '''program : block'''
     print('Program')
     #p[0] = program(p[1],"program")
 
+def p_block(p):
+    '''block : constDecl varDecl procDecl statement'''
+    print('block')
+
 def p_constDecl(p):
-    '''constDecl = CONST constAssignmentList;'''
+    '''constDecl : CONST constAssignmentList SEMMICOLOM'''
     print('constDecl')
     #p[0] = constDecl(p[2])
 
 def p_constDeclEmpty(p):
-    '''constDecl = empty'''
+    '''constDecl : empty'''
     print("nulo")
     #p[0] = Null()
 
 def p_constAssignmentList1(p):
-    '''constAssignmentList : ID = NUMBER'''
+    '''constAssignmentList : ID ASSIGN NUMBER'''
     print('constAssignmentList 1')
 
 def p_constAssignmentList2(p):
-    '''constAssignmentList : constAssignmentList , ID = NUMBER'''
+    '''constAssignmentList : constAssignmentList COMMA ID ASSIGN NUMBER'''
     print('constAssignmentList 2')
 
 def p_varDecl1(p):
-    '''varDecl : VAR ID'''
+    '''varDecl : VAR identList SEMMICOLOM'''
     print('varDecl1')
 
 def p_varDeclEmpty(p):
@@ -52,11 +59,11 @@ def p_identList1(p):
     print('identList 1')
 
 def p_identList2(p):
-    '''identList : identList, ID'''
+    '''identList : identList COMMA ID'''
     print('identList 2')
 
 def p_procDecl1(p):
-    '''procDecl : procDecl PROCEDURE ID ; block ;'''
+    '''procDecl : procDecl PROCEDURE ID SEMMICOLOM block SEMMICOLOM'''
     print('procDecl 1')
 
 def p_procDeclEmpty(p):
@@ -92,7 +99,7 @@ def p_statementList1(p):
     print('statementList 1')
 
 def p_statementList2(p):
-    '''statementList : statementList ; statement'''
+    '''statementList : statementList SEMMICOLOM statement'''
     print('statementList 2')
 
 def p_condition1(p):
@@ -147,6 +154,14 @@ def p_term2(p):
     '''term : term multiplyingOperator factor'''
     print('term 2')
 
+def p_addingOperator1(p):
+    '''addingOperator : PLUS'''
+    print('addingOperator 1')
+
+def p_addingOperator2(p):
+    '''addingOperator : MINUS'''
+    print('addingOperator 2')
+
 def p_multiplyingOperator1(p):
     '''multiplyingOperator : TIMES'''
     print('multiplyingOperator 1')
@@ -173,4 +188,42 @@ def p_empty(p):
 
 def p_error(p):
     print('Error de Sintaxis',p)
+    #print('Error en la línea ' + str(p.lineno))
+# Búsqueda de Ficheros
+def buscarFicheros(directorio):
+    ficheros = []
+    numArchivo = ''
+    respuesta = False
+    cont = 1
+    # Ciclo For
+    for base,dirs,files in os.walk(directorio):
+        ficheros.append(files)
     
+    for file in files:
+        print(str(cont) + '. ' + str(file))
+        cont = cont + 1
+    
+    while respuesta == False:
+        numArchivo = input('\nNúmero del test: ')
+        for file in files:
+            if file == files[int(numArchivo) - 1]:
+                respuesta = True
+                break
+
+    print('Has escogido \n' + files[int(numArchivo) - 1])
+    return files[int(numArchivo) - 1]
+#Fin búsqueda de Ficheros
+# Buscar dentro del fichero o directorio
+# Escritorio
+directorio = 'C:\\Users\\Ordenador\\Documents\\Python\\Compilador pl0\\test\\'
+# Portatil
+#directorio = 'C:\\Users\\Ordenador\\Escritorio\\carpeta xd\\test\\'
+archivo = buscarFicheros(directorio)
+test = directorio + archivo
+fileOpen = codecs.open(test,"r","utf-8")
+cadena = fileOpen.read()
+fileOpen.close()
+
+parser = yacc.yacc()
+result = parser.parse(cadena)
+print(result)
